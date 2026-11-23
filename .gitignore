@@ -221,3 +221,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / Vite
+node_modules/
+frontend/dist/
+
+# macOS
+.DS_Store
+
+# The Python template above ignores every "lib/" directory; the React helpers folder must be tracked.
+!frontend/src/lib/

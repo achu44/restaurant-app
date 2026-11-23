@@ -1,0 +1,26 @@
+.hours-list {
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.hours-list > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: var(--space-4);
+}
+
+.hours-list dt {
+  font-weight: 500;
+}
+
+.hours-list dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.hours-list__today {
+  font-weight: 400;
+  opacity: 0.75;
+}
