@@ -145,6 +145,10 @@ Database outages return a friendly `503` (NFR-6).
 
 ## Running locally
 
+> **New to the project?** Follow the step-by-step **[developer guide](docs/developer-guide.md)**. It covers
+> installing everything on macOS, Windows or Linux, setting up PostgreSQL, operating the site,
+> troubleshooting and how to make changes. The summary below assumes the tools are already installed.
+
 ### Prerequisites
 
 * **PostgreSQL 16+** running locally (macOS: `brew install postgresql@16 && brew services start postgresql@16`)
@@ -153,13 +157,16 @@ Database outages return a friendly `503` (NFR-6).
 
 ### 1. Database
 
-```bash
-createdb cafe_fausse
-createdb cafe_fausse_test     # only needed for the test suite
+As a Postgres superuser (`psql postgres` on macOS/Homebrew, `psql -U postgres` on Windows,
+`sudo -u postgres psql` on Linux):
+
+```sql
+CREATE ROLE cafe_fausse WITH LOGIN PASSWORD 'cafe_fausse';
+CREATE DATABASE cafe_fausse OWNER cafe_fausse;
+CREATE DATABASE cafe_fausse_test OWNER cafe_fausse;   -- used (and wiped) by the test suite
 ```
 
-If your Postgres needs a user and password, put them in the URLs in step 2,
-for example `postgresql+psycopg://user:password@localhost:5432/cafe_fausse`.
+These match the defaults in `backend/.env.example`. If you use different names, edit `.env` to match.
 
 ### 2. Backend (Flask API on http://127.0.0.1:5001)
 
@@ -167,8 +174,8 @@ for example `postgresql+psycopg://user:password@localhost:5432/cafe_fausse`.
 cd backend
 cp .env.example .env          # edit DATABASE_URL if needed
 uv sync                       # creates .venv and installs dependencies
-uv run flask --app app init-db
-uv run flask --app app run -p 5001
+uv run flask init-db
+uv run flask run              # port 5001 and auto-reload come from .env
 ```
 
 > Port 5001 is used because macOS reserves 5000 for AirPlay.
@@ -179,7 +186,7 @@ In a second terminal:
 
 ```bash
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
 
@@ -193,9 +200,9 @@ the same way.
 ```bash
 cd backend
 uv run pytest                                        # 17 tests incl. concurrency/overbooking
-uv run flask --app app seed-demo 2026-12-05T19:00    # fill a slot, leaving 1 table free
-uv run flask --app app seed-demo 2026-12-05T19:00 --leave 0   # fill it completely
-uv run flask --app app init-db --drop                # wipe and recreate tables
+uv run flask seed-demo 2026-12-05T19:00    # fill a slot, leaving 1 table free
+uv run flask seed-demo 2026-12-05T19:00 --leave 0   # fill it completely
+uv run flask init-db --drop                # wipe and recreate tables
 psql cafe_fausse                                     # inspect the data directly
 ```
 

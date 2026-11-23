@@ -26,9 +26,10 @@ def register_cli(app):
     @click.argument("slot")
     @click.option("--leave", default=1, show_default=True, help="Tables to leave free.")
     def seed_demo(slot, leave):
-        """Fill SLOT (e.g. 2026-12-05T19:00) with demo bookings, leaving --leave tables free.
+        """Fill a time slot with demo bookings to show "fully booked".
 
-        Handy for demonstrating the "fully booked" message live.
+        SLOT is a seating time such as 2026-12-05T19:00. By default one table is left free;
+        use --leave 0 to fill the slot completely.
         """
         time_slot = datetime.fromisoformat(slot)
         free = sorted(set(range(1, TOTAL_TABLES + 1)) - taken_tables(time_slot))

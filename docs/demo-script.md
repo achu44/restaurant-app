@@ -4,7 +4,7 @@
 
 ```bash
 # Terminal 1: API (start from a clean database)
-cd backend && uv run flask --app app init-db --drop && uv run flask --app app run -p 5001
+cd backend && uv run flask init-db --drop && uv run flask run -p 5001
 # Terminal 2: frontend
 cd frontend && npm run dev
 # Terminal 3: database
@@ -60,11 +60,11 @@ ORDER BY r.reservation_id;
    reservation” message.
 6. **Fully booked (server-side check):**
    1. Leave exactly one table free at 7:30 PM:
-      `cd backend && uv run flask --app app seed-demo 2026-12-05T19:30`
+      `cd backend && uv run flask seed-demo 2026-12-05T19:30`
    2. Re-select the date in the form. 7:30 PM now shows “(1 left)”. Select it and fill in the details,
       but don't submit yet.
    3. Take the last table from the terminal (as if another guest booked it):
-      `uv run flask --app app seed-demo 2026-12-05T19:30 --leave 0`
+      `uv run flask seed-demo 2026-12-05T19:30 --leave 0`
    4. Click **Book table**. The server rejects it with “All 30 tables are booked for this time. Please
       choose another time.” and the dropdown refreshes, showing 7:30 PM as fully booked.
 
