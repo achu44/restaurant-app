@@ -1,0 +1,68 @@
+.awards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.awards li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--brass);
+}
+
+.awards__year {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  line-height: 1;
+  color: var(--brass);
+  font-variant-numeric: lining-nums;
+}
+
+.awards__title {
+  font-weight: 600;
+  font-size: var(--step-1);
+}
+
+.awards__source {
+  color: var(--ink-muted);
+}
+
+.section--dark .awards__source {
+  color: color-mix(in srgb, var(--porcelain) 70%, transparent);
+}
+
+.reviews {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+.review {
+  margin: 0;
+}
+
+.review blockquote {
+  margin: 0;
+}
+
+.review blockquote p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--step-3);
+  line-height: 1.2;
+  margin-bottom: var(--space-3);
+}
+
+.review figcaption {
+  font-weight: 500;
+  color: var(--brass);
+}
+
+.review figcaption::before {
+  content: '— ';
+}
