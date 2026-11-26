@@ -126,7 +126,7 @@ def availability_for_date(day: date) -> list[dict]:
         result.append(
             {
                 "time_slot": slot.isoformat(timespec="minutes"),
-                "label": slot.strftime("%-I:%M %p"),
+                "label": slot.strftime("%I:%M %p").lstrip("0"),
                 "tables_remaining": remaining,
                 "available": reason is None and remaining > 0,
                 "status": _status(slot, now, remaining, reason),
